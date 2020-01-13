@@ -17,13 +17,15 @@ h1 {
 
 .snake {
   background-color: black;
+  border-radius: 20%;
 }
 
 .ghostSnake {
   background-color: gray;
+  border-radius: 20%;
 }
 
 .food {
-  background-color: red;
+  background-color: rgb(5, 118, 163);
   border-radius: 50%;
 }
