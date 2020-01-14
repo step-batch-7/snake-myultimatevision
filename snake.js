@@ -25,8 +25,16 @@ class Snake {
     return this.previousTail;
   }
 
+  get head() {
+    return this.location[this.location.length - 1];
+  }
+
   turnLeft() {
     this.direction.turnLeft();
+  }
+
+  turnRight() {
+    this.direction.turnRight();
   }
 
   move() {
@@ -41,12 +49,24 @@ class Snake {
   }
 
   doesSnakeHitTheWall() {
-    const [headX, headY] = this.location[this.location.length - 1];
-    return isNotInRange(headX, [0, NUM_OF_COLS]) || isNotInRange(headY, [0, NUM_OF_ROWS])
+    const [headX, headY] = this.head
+    return isCoordinateExceedRange(headX, [0, NUM_OF_COLS]) || isCoordinateExceedRange(headY, [0, NUM_OF_ROWS])
   };
+
+  doesSnakeHitAnother(snake) {
+    const head = this.head
+    return snake.location.some((part) =>
+      part.every((coordinate, i) => coordinate == head[i]));
+  }
+
+  doesSnakeHitItself() {
+    const head = this.head
+    return this.location.slice(0, -1).some((part) =>
+      part.every((coordinate, i) => coordinate == head[i]));
+  }
 }
 
-const isNotInRange = function (num, range) {
+const isCoordinateExceedRange = function (num, range) {
   max_value = Math.max(...range);
   min_value = Math.min(...range);
   return max_value <= num || min_value > num

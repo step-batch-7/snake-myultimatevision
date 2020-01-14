@@ -29,20 +29,40 @@ const DrawSnakesAndFood = function ({ snake, food, ghostSnake }) {
   drawSnake(ghostSnake);
 };
 
-const displayGameOver = function () {
+const drawScore = function (score) {
+  const scoreElement = document.getElementById('score');
+  scoreElement.innerText = `score : ${score.score}`;
+}
+
+const clearGrid = function () {
+  const score = document.getElementById('score');
   const grid = getGrid();
+  document.body.removeChild(grid);
+
+}
+
+const clearIntervals = function () {
   clearInterval(interval1);
   clearInterval(interval2);
-  document.body.removeChild(grid);
+}
+
+const displayGameOver = function () {
   const gameOver = document.createElement('h1');
   gameOver.innerText = "game Over";
   gameOver.classList.add('gameOver');
   document.body.appendChild(gameOver);
 }
+
+const endGame = function (score) {
+  clearIntervals();
+  clearGrid();
+  displayGameOver();
+}
+
 const updateAndDrawGame = function (game) {
-  const { snake, food, ghostSnake } = game.getStatus();
+  const { snake, food, ghostSnake, score } = game.getStatus();
   if (game.isGameOver()) {
-    displayGameOver();
+    endGame(score);
     return;
   }
   game.moveSnakes();
@@ -50,4 +70,5 @@ const updateAndDrawGame = function (game) {
   eraseTail(snake);
   eraseTail(ghostSnake);
   DrawSnakesAndFood({ snake, food, ghostSnake });
+  drawScore(score);
 }
