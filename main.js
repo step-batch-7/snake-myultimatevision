@@ -24,7 +24,13 @@ const createGrids = function () {
 };
 
 const handleKeyPress = game => {
-  game.turnLeft();
+  const moves = {
+    'ArrowLeft': WEST,
+    'ArrowRight': EAST,
+    'ArrowUp': NORTH,
+    'ArrowDown': SOUTH,
+  }
+  game.turnSnake(moves[event.key]);
 };
 
 const attachEventListeners = game => {

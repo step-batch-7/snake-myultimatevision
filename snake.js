@@ -29,6 +29,10 @@ class Snake {
     return this.location[this.location.length - 1];
   }
 
+  get heading() {
+    return this.direction.heading;
+  }
+
   turnLeft() {
     this.direction.turnLeft();
   }

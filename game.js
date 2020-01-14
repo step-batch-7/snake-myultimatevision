@@ -28,13 +28,23 @@ class Game {
     return { snake, food, ghostSnake, scoreCard };
   }
 
-  turnLeft() {
-    this.snake.turnLeft();
+  turnSnake(newDirection) {
+    const direction = this.snake.heading;
+    if (newDirection === (direction + 1) % 4) {
+      this.snake.turnLeft();
+    }
+    if (newDirection === (direction + 3) % 4) {
+      this.snake.turnRight();
+    }
   }
 
-  turnRight() {
-    this.snake.turnRight();
-  }
+  // turnLeft() {
+  //   this.snake.turnLeft();
+  // }
+
+  // turnRight() {
+  //   this.snake.turnRight();
+  // }
 
 
   moveSnakes() {
