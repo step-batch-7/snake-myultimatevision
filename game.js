@@ -1,9 +1,9 @@
 class Game {
-  constructor(snake, ghostSnake, food, score) {
+  constructor(snake, ghostSnake, food, scoreCard) {
     this.snake = snake;
     this.ghostSnake = ghostSnake;
     this.food = food;
-    this.score = score;
+    this.scoreCard = scoreCard;
   }
 
   getStatus() {
@@ -24,8 +24,8 @@ class Game {
       tail: this.ghostSnake.tail
     }
 
-    const score = { score: this.score.score };
-    return { snake, food, ghostSnake, score };
+    const scoreCard = { score: this.scoreCard.score };
+    return { snake, food, ghostSnake, scoreCard };
   }
 
   turnLeft() {
@@ -43,7 +43,7 @@ class Game {
     if (isFoodEatenBySnake(this.snake, this.food)) {
       this.food.generateNew();
       this.snake.addPart();
-      this.incrementScore();
+      this.updateScore(1);
     }
   }
 
@@ -54,8 +54,8 @@ class Game {
     return doesSnakeHitTheWall || doesSnakeHitAnother || doesSnakeHitItself;
   }
 
-  incrementScore() {
-    this.score.incrementScore();
+  updateScore(points) {
+    this.scoreCard.update(points);
   }
 }
 

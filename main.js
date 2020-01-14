@@ -66,8 +66,8 @@ const main = function () {
   const snake = initSnake();
   const ghostSnake = initGhostSnake();
   const food = new Food(15, 15, [0, 0]);
-  const score = new Score(0);
-  const game = new Game(snake, ghostSnake, food, score);
+  const scoreCard = new ScoreCard(0);
+  const game = new Game(snake, ghostSnake, food, scoreCard);
 
   setUpGame(game);
 

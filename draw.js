@@ -29,9 +29,9 @@ const DrawSnakesAndFood = function ({ snake, food, ghostSnake }) {
   drawSnake(ghostSnake);
 };
 
-const drawScore = function (score) {
-  const scoreElement = document.getElementById('score');
-  scoreElement.innerText = `score : ${score.score}`;
+const drawScoreCard = function (scoreCard) {
+  const score = document.getElementById('scoreCard');
+  score.innerText = `score : ${scoreCard.score}`;
 }
 
 const clearGrid = function () {
@@ -60,9 +60,9 @@ const endGame = function (score) {
 }
 
 const updateAndDrawGame = function (game) {
-  const { snake, food, ghostSnake, score } = game.getStatus();
+  const { snake, food, ghostSnake, scoreCard } = game.getStatus();
   if (game.isGameOver()) {
-    endGame(score);
+    endGame(scoreCard);
     return;
   }
   game.moveSnakes();
@@ -70,5 +70,5 @@ const updateAndDrawGame = function (game) {
   eraseTail(snake);
   eraseTail(ghostSnake);
   DrawSnakesAndFood({ snake, food, ghostSnake });
-  drawScore(score);
+  drawScoreCard(scoreCard);
 }

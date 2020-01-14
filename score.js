@@ -1,4 +1,4 @@
-class Score {
+class ScoreCard {
   constructor(score) {
     this.score = score;
   }
@@ -7,7 +7,7 @@ class Score {
     return this.score;
   }
 
-  incrementScore() {
-    return this.score++;
+  update(points) {
+    return this.score += points;
   }
 }
