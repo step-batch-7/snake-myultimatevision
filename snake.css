@@ -2,6 +2,10 @@ h1 {
   text-align: center;
 }
 
+body {
+  text-align: center;
+}
+
 #grid {
   width: 800px;
   display: flex;
@@ -28,4 +32,9 @@ h1 {
 .food {
   background-color: rgb(5, 118, 163);
   border-radius: 50%;
+}
+
+.gameOver {
+  color: red;
+  padding: 10px;
 }
