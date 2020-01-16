@@ -38,14 +38,17 @@ class Game {
     }
   }
 
-  // turnLeft() {
-  //   this.snake.turnLeft();
-  // }
+  turnGhostSnakeLeft() {
+    this.ghostSnake.turnLeft();
+  }
 
-  // turnRight() {
-  //   this.snake.turnRight();
-  // }
+  doesGhostSnakeHitTheWall() {
+    return this.ghostSnake.doesHitTheWall();
+  }
 
+  doesGhostSnakeEatSnake() {
+    return this.ghostSnake.hasEatenAnother(this.snake);
+  }
 
   moveSnakes() {
     this.snake.move();
@@ -53,15 +56,26 @@ class Game {
     if (isFoodEatenBySnake(this.snake, this.food)) {
       this.food.generateNew();
       this.snake.addPart();
-      this.updateScore(1);
+      this.updateScore(2);
+    }
+    if (isFoodEatenBySnake(this.ghostSnake, this.food)) {
+      this.food.generateNew();
+      this.ghostSnake.addPart();
+      this.updateScore(-1);
     }
   }
 
-  isGameOver() {
-    const doesSnakeHitTheWall = this.snake.doesSnakeHitTheWall();
-    const doesSnakeHitAnother = this.snake.doesSnakeHitAnother(this.ghostSnake);
-    const doesSnakeHitItself = this.snake.doesSnakeHitItself();
-    return doesSnakeHitTheWall || doesSnakeHitAnother || doesSnakeHitItself;
+  updateSnakes() {
+    //this.snake.removePart();
+    this.ghostSnake.addPart();
+    this.updateScore(-2);
+  }
+
+  isOver() {
+    const doesSnakeHitTheWall = this.snake.doesHitTheWall();
+    const hasEatenAnotherSnake = this.snake.hasEatenAnother(this.ghostSnake);
+    const doesSnakeHitItself = this.snake.hasEatenItself();
+    return doesSnakeHitTheWall || hasEatenAnotherSnake || doesSnakeHitItself;
   }
 
   updateScore(points) {

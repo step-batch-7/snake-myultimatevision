@@ -53,22 +53,34 @@ const displayGameOver = function () {
   document.body.appendChild(gameOver);
 }
 
-const endGame = function (score) {
+const endGame = function () {
   clearIntervals();
   clearGrid();
   displayGameOver();
 }
 
-const updateAndDrawGame = function (game) {
-  const { snake, food, ghostSnake, scoreCard } = game.getStatus();
-  if (game.isGameOver()) {
-    endGame(scoreCard);
-    return;
-  }
-  game.moveSnakes();
+drawGame = function (game) {
+  const { snake, ghostSnake, scoreCard, food } = game.getStatus();
   erasePreviousFood(food);
   eraseTail(snake);
   eraseTail(ghostSnake);
   DrawSnakesAndFood({ snake, food, ghostSnake });
   drawScoreCard(scoreCard);
+}
+
+const updateAndDrawGame = function (game) {
+  const { snake } = game.getStatus();
+  if (game.isOver()) {
+    endGame();
+    return;
+  }
+  game.moveSnakes();
+  if (game.doesGhostSnakeHitTheWall()) {
+    game.turnGhostSnakeLeft();
+  }
+  if (game.doesGhostSnakeEatSnake()) {
+    eraseTail(snake);
+    game.updateSnakes();
+  }
+  drawGame(game);
 }

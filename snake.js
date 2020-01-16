@@ -42,28 +42,32 @@ class Snake {
   }
 
   move() {
-    const [headX, headY] = this.positions[this.positions.length - 1];
+    const [headX, headY] = this.head;
     const [deltaX, deltaY] = this.direction.delta;
     this.previousTail = this.positions.shift();
     this.positions.push([headX + deltaX, headY + deltaY]);
+  }
+
+  removePart() {
+    this.previousTail = this.positions.shift();
   }
 
   addPart() {
     this.positions.unshift(this.tail);
   }
 
-  doesSnakeHitTheWall() {
+  doesHitTheWall() {
     const [headX, headY] = this.head
     return isCoordinateExceedRange(headX, [0, NUM_OF_COLS]) || isCoordinateExceedRange(headY, [0, NUM_OF_ROWS])
   };
 
-  doesSnakeHitAnother(snake) {
+  hasEatenAnother(snake) {
     const head = this.head
     return snake.location.some((part) =>
       part.every((coordinate, i) => coordinate == head[i]));
   }
 
-  doesSnakeHitItself() {
+  hasEatenItself() {
     const head = this.head
     return this.location.slice(0, -1).some((part) =>
       part.every((coordinate, i) => coordinate == head[i]));

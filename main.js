@@ -52,9 +52,19 @@ const setUpGame = function (game) {
 
 const initSnake = () => {
   const snakePosition = [
+    [36, 25],
+    [37, 25],
+    [38, 25],
+    [39, 25],
     [40, 25],
     [41, 25],
-    [42, 25]
+    [42, 25],
+    [43, 25],
+    [44, 25],
+    [45, 25],
+    [46, 25],
+    [47, 25],
+    [48, 25]
   ];
   return new Snake(snakePosition, new Direction(EAST), 'snake');
 };
@@ -77,7 +87,7 @@ const main = function () {
 
   setUpGame(game);
 
-  interval1 = setInterval(updateAndDrawGame, 200, game);
-  interval2 = setInterval(randomlyTurnSnake, 600, ghostSnake);
+  interval1 = setInterval(updateAndDrawGame, 100, game);
+  interval2 = setInterval(randomlyTurnSnake, 400, ghostSnake);
 };
 
