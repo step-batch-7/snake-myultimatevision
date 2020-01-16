@@ -3,26 +3,28 @@ const NUM_OF_ROWS = 60;
 
 const GRID_ID = 'grid';
 
-
-
 class Snake {
+  #positions;
+  #direction;
+  #type;
+  #previousTail;
   constructor(positions, direction, type) {
-    this.positions = positions.slice();
-    this.direction = direction;
-    this.type = type;
-    this.previousTail = [0, 0];
+    this.#positions = positions.slice();
+    this.#direction = direction;
+    this.#type = type;
+    this.#previousTail = [0, 0];
   }
 
   get location() {
-    return this.positions.slice();
+    return this.#positions.slice();
   }
 
   get species() {
-    return this.type;
+    return this.#type;
   }
 
   get tail() {
-    return this.previousTail;
+    return this.#previousTail;
   }
 
   get head() {
@@ -30,30 +32,30 @@ class Snake {
   }
 
   get heading() {
-    return this.direction.heading;
+    return this.#direction.heading;
   }
 
   turnLeft() {
-    this.direction.turnLeft();
+    this.#direction.turnLeft();
   }
 
   turnRight() {
-    this.direction.turnRight();
+    this.#direction.turnRight();
   }
 
   move() {
     const [headX, headY] = this.head;
-    const [deltaX, deltaY] = this.direction.delta;
-    this.previousTail = this.positions.shift();
-    this.positions.push([headX + deltaX, headY + deltaY]);
+    const [deltaX, deltaY] = this.#direction.delta;
+    this.#previousTail = this.#positions.shift();
+    this.#positions.push([headX + deltaX, headY + deltaY]);
   }
 
   removePart() {
-    this.previousTail = this.positions.shift();
+    this.#previousTail = this.#positions.shift();
   }
 
   addPart() {
-    this.positions.unshift(this.tail);
+    this.#positions.unshift(this.tail);
   }
 
   doesHitTheWall() {

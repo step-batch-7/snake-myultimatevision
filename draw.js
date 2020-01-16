@@ -1,7 +1,7 @@
 const drawFood = function (food) {
   const [foodX, foodY] = food.position;
   const cell = getCell(foodX, foodY);
-  cell.classList.add("food");
+  cell.classList.add(food.type);
 }
 
 const drawSnake = function (snake) {
@@ -14,7 +14,7 @@ const drawSnake = function (snake) {
 const erasePreviousFood = function (food) {
   const [foodX, foodY] = food.previousFood;
   const cell = getCell(foodX, foodY);
-  cell.classList.remove('food');
+  cell.classList.remove(food.type);
 }
 
 const eraseTail = function (snake) {
@@ -35,10 +35,8 @@ const drawScoreCard = function (scoreCard) {
 }
 
 const clearGrid = function () {
-  const score = document.getElementById('score');
   const grid = getGrid();
   document.body.removeChild(grid);
-
 }
 
 const clearIntervals = function () {
@@ -70,11 +68,11 @@ drawGame = function (game) {
 
 const updateAndDrawGame = function (game) {
   const { snake } = game.getStatus();
+  game.moveSnakes();
   if (game.isOver()) {
     endGame();
     return;
   }
-  game.moveSnakes();
   if (game.doesGhostSnakeHitTheWall()) {
     game.turnGhostSnakeLeft();
   }

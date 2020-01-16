@@ -1,4 +1,4 @@
-let interval1, interval2;
+let interval1, interval2, interval3;
 
 const getGrid = () => document.getElementById(GRID_ID);
 
@@ -52,19 +52,9 @@ const setUpGame = function (game) {
 
 const initSnake = () => {
   const snakePosition = [
-    [36, 25],
-    [37, 25],
-    [38, 25],
-    [39, 25],
     [40, 25],
     [41, 25],
-    [42, 25],
-    [43, 25],
-    [44, 25],
-    [45, 25],
-    [46, 25],
-    [47, 25],
-    [48, 25]
+    [42, 25]
   ];
   return new Snake(snakePosition, new Direction(EAST), 'snake');
 };
@@ -81,7 +71,7 @@ const initGhostSnake = () => {
 const main = function () {
   const snake = initSnake();
   const ghostSnake = initGhostSnake();
-  const food = new Food(15, 15, [0, 0]);
+  const food = new Food(15, 15, [0, 0], 'normal');
   const scoreCard = new ScoreCard(0);
   const game = new Game(snake, ghostSnake, food, scoreCard);
 

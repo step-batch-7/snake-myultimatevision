@@ -1,13 +1,14 @@
 class ScoreCard {
+  #score;
   constructor(score) {
-    this.score = score;
+    this.#score = score;
   }
 
-  get Score() {
-    return this.score;
+  get score() {
+    return this.#score;
   }
 
   update(points) {
-    return this.score += points;
+    return this.#score += points;
   }
 }

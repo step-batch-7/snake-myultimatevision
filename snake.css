@@ -29,8 +29,15 @@ body {
   border-radius: 20%;
 }
 
-.food {
+.normal {
   background-color: rgb(5, 118, 163);
+  border-radius: 10%;
+}
+
+.special {
+  height: 10px;
+  width: 10px;
+  background-color: red;
   border-radius: 50%;
 }
 
