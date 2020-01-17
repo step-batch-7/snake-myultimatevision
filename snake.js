@@ -58,9 +58,15 @@ class Snake {
     this.#positions.unshift(this.tail);
   }
 
+
   doesHitTheWall() {
     const [headX, headY] = this.head
     return isCoordinateExceedRange(headX, [0, NUM_OF_COLS]) || isCoordinateExceedRange(headY, [0, NUM_OF_ROWS])
+  };
+
+  nearTheWall() {
+    const [headX, headY] = this.head
+    return isCoordinateExceedRange(headX, [1, NUM_OF_COLS - 1]) || isCoordinateExceedRange(headY, [1, NUM_OF_ROWS - 1])
   };
 
   hasEatenAnother(snake) {
@@ -74,6 +80,12 @@ class Snake {
     return this.location.slice(0, -1).some((part) =>
       part.every((coordinate, i) => coordinate == head[i]));
   }
+
+  isAt(position) {
+    return this.location.some(part =>
+      part.every((coordinate, i) => coordinate == position[i]));
+  }
+
 }
 
 const isCoordinateExceedRange = function (num, range) {

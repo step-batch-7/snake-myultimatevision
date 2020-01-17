@@ -30,6 +30,10 @@ const handleKeyPress = game => {
     'ArrowUp': NORTH,
     'ArrowDown': SOUTH,
   }
+  if (event.key == ' ') {
+    const runningStatus = game.runningStatus === 'pause' ? 'resume' : 'pause';
+    game.modifyRunningStatus(runningStatus);
+  }
   game.turnSnake(moves[event.key]);
 };
 
@@ -71,7 +75,7 @@ const initGhostSnake = () => {
 const main = function () {
   const snake = initSnake();
   const ghostSnake = initGhostSnake();
-  const food = new Food(15, 15, [0, 0], 'normal');
+  const food = new Food(15, 15, 'normalFood');
   const scoreCard = new ScoreCard(0);
   const game = new Game(snake, ghostSnake, food, scoreCard);
 

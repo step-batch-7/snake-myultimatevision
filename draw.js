@@ -2,6 +2,7 @@ const drawFood = function (food) {
   const [foodX, foodY] = food.position;
   const cell = getCell(foodX, foodY);
   cell.classList.add(food.type);
+
 }
 
 const drawSnake = function (snake) {
@@ -12,8 +13,7 @@ const drawSnake = function (snake) {
 };
 
 const erasePreviousFood = function (food) {
-  const [foodX, foodY] = food.previousFood;
-  const cell = getCell(foodX, foodY);
+  const cell = document.getElementsByClassName(food.type)[0];
   cell.classList.remove(food.type);
 }
 
@@ -34,7 +34,7 @@ const drawScoreCard = function (scoreCard) {
   score.innerText = `score : ${scoreCard.score}`;
 }
 
-const clearGrid = function () {
+const eraseGrid = function () {
   const grid = getGrid();
   document.body.removeChild(grid);
 }
@@ -53,7 +53,7 @@ const displayGameOver = function () {
 
 const endGame = function () {
   clearIntervals();
-  clearGrid();
+  eraseGrid();
   displayGameOver();
 }
 
@@ -67,13 +67,16 @@ drawGame = function (game) {
 }
 
 const updateAndDrawGame = function (game) {
+  if (game.runningStatus === 'pause') {
+    return;
+  }
   const { snake } = game.getStatus();
   game.moveSnakes();
   if (game.isOver()) {
     endGame();
     return;
   }
-  if (game.doesGhostSnakeHitTheWall()) {
+  if (game.doesGhostSnakeNearTheWall()) {
     game.turnGhostSnakeLeft();
   }
   if (game.doesGhostSnakeEatSnake()) {

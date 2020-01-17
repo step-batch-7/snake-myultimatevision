@@ -3,30 +3,33 @@ class Game {
   #ghostSnake;
   #food;
   #scoreCard;
+  #runningStatus;
   constructor(snake, ghostSnake, food, scoreCard) {
     this.#snake = snake;
     this.#ghostSnake = ghostSnake;
     this.#food = food;
     this.#scoreCard = scoreCard;
+    this.#runningStatus = 'resume';
   }
 
   getStatus() {
     const snake = {
       location: this.#snake.location,
       species: this.#snake.species,
-      tail: this.#snake.tail
+      tail: this.#snake.tail,
+      head: this.#snake.head
     }
 
     const food = {
       position: this.#food.position,
-      previousFood: this.#food.previousFood,
       type: this.#food.type
     }
 
     const ghostSnake = {
       location: this.#ghostSnake.location,
       species: this.#ghostSnake.species,
-      tail: this.#ghostSnake.tail
+      tail: this.#ghostSnake.tail,
+      head: this.#ghostSnake.head
     }
 
     const scoreCard = { score: this.#scoreCard.score };
@@ -47,8 +50,8 @@ class Game {
     this.#ghostSnake.turnLeft();
   }
 
-  doesGhostSnakeHitTheWall() {
-    return this.#ghostSnake.doesHitTheWall();
+  doesGhostSnakeNearTheWall() {
+    return this.#ghostSnake.nearTheWall();
   }
 
   doesGhostSnakeEatSnake() {
@@ -58,16 +61,26 @@ class Game {
   moveSnakes() {
     this.#snake.move();
     this.#ghostSnake.move();
-    if (isFoodEatenBySnake(this.#snake, this.#food)) {
-      this.#food.generateNew();
+
+    if (this.#snake.isAt(this.#food.position)) {
+      this.generateNewFood();
       this.#snake.addPart();
       this.updateScore(2);
     }
-    if (isFoodEatenBySnake(this.#ghostSnake, this.#food)) {
-      this.#food.generateNew();
+
+    if (this.#ghostSnake.isAt(this.#food.position)) {
+      this.generateNewFood();
       this.#ghostSnake.addPart();
       this.updateScore(-1);
     }
+  }
+
+  generateNewFood() {
+    const colId = Math.round(Math.random() * (NUM_OF_COLS - 1));
+    const rowId = Math.round(Math.random() * (NUM_OF_ROWS - 1));
+    const previousFoodType = this.#food.type;
+    const foodType = 'normalFood';
+    this.#food = new Food(colId, rowId, foodType);
   }
 
   updateSnakes() {
@@ -86,9 +99,12 @@ class Game {
   updateScore(points) {
     this.#scoreCard.update(points);
   }
-}
 
-const isFoodEatenBySnake = function (snake, food) {
-  return snake.location.some(part =>
-    part.every((coordinate, i) => coordinate == food.position[i]));
+  modifyRunningStatus(runningState) {
+    this.#runningStatus = runningState;
+  }
+
+  get runningStatus() {
+    return this.#runningStatus;
+  }
 }
