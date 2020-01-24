@@ -29,9 +29,12 @@ body {
   border-radius: 20%;
 }
 
-.normalFood {
+.food {
+  border-radius: 50%;
+}
+
+.normal {
   background-color: rgb(5, 118, 163);
-  border-radius: 10%;
 }
 
 .gameOver {

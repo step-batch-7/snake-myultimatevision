@@ -63,23 +63,21 @@ class Game {
     this.#ghostSnake.move();
 
     if (this.#snake.isAt(this.#food.position)) {
-      this.generateNewFood();
+      this.generateNewFood('normal');
       this.#snake.addPart();
       this.updateScore(2);
     }
 
     if (this.#ghostSnake.isAt(this.#food.position)) {
-      this.generateNewFood();
+      this.generateNewFood('normal');
       this.#ghostSnake.addPart();
       this.updateScore(-1);
     }
   }
 
-  generateNewFood() {
+  generateNewFood(foodType) {
     const colId = Math.round(Math.random() * (NUM_OF_COLS - 1));
     const rowId = Math.round(Math.random() * (NUM_OF_ROWS - 1));
-    const previousFoodType = this.#food.type;
-    const foodType = 'normalFood';
     this.#food = new Food(colId, rowId, foodType);
   }
 
