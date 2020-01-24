@@ -83,7 +83,6 @@ const updateAndDrawGame = function (game) {
   }
   if (game.doesGhostSnakeEatSnake()) {
     eraseTail(snake);
-    console.log(snake);
     game.updateSnakes();
   }
   drawGame(game);
